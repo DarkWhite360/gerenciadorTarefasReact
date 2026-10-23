@@ -8,7 +8,9 @@ import { Tarefas } from './pages/Tarefas';
 import { Responsaveis } from './pages/Responsaveis';
 import { Perfil } from './pages/Perfil';
 import { Home } from './pages/Home';
-
+import { DetalheTarefa } from './pages/DetalheTarefa'; 
+import { EditarTarefa } from './pages/EditarTarefa';
+ 
 function App() {
   return (
     <BrowserRouter>
@@ -16,12 +18,17 @@ function App() {
         <Header />
         <Menu />
 
-        <main>
+        <main className='mainApp'>
           <Routes>
             <Route path='/' element = {<Home />}/>
             <Route path='/tarefas' element = {<Tarefas />}/>
             <Route path='/responsaveis' element = {<Responsaveis />}/>
             <Route path='/perfil' element = {<Perfil />}/>
+
+            <Route path='/detalheTarefa:id' element={<DetalheTarefa/>}/>
+            <Route path='/editarTarefa:id' element={<EditarTarefa/>}/>
+            <Route path='/excluirTarefa:id' element={<Home/>}/>
+            
           </Routes>
         </main>
 
