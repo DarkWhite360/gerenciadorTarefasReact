@@ -1,0 +1,23 @@
+.headerTopo{
+    height: 130px;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+}
+.headerTopoLogo{
+    width: 290px;
+}
+.headerTopoLogo img{
+    width: 290px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+.headerTopoTitulo{
+    width: 60%;
+}
+.headerTopoTitulo h1{
+    font-size: 1.8rem;
+    text-align: right;
+}
