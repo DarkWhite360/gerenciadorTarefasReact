@@ -3,7 +3,7 @@ import "./index.css"
 
 export function EditarTarefa(){
 
-    const id = useParams.id;
+    const {id} = useParams();
 
     return(
         <section>
