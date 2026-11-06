@@ -11,6 +11,7 @@ import { Home } from './pages/Home';
 import { DetalheTarefa } from './pages/DetalheTarefa'; 
 import { EditarTarefa } from './pages/EditarTarefa';
 import { CadastrarTarefa } from './pages/CadastrarTarefas';
+import { Login } from './components/Login';
  
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path='/responsaveis' element = {<Responsaveis />}/>
             <Route path='/perfil' element = {<Perfil />}/>
 
+            <Route path='/autenticar' element={<Login />}/>
             <Route path='/cadastrarTarefa' element={<CadastrarTarefa/>}/>
             <Route path='/detalheTarefa/:id' element={<DetalheTarefa/>}/>
             <Route path='/editarTarefa/:id' element={<EditarTarefa/>}/>
