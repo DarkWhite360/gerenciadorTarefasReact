@@ -1,43 +1,63 @@
 import './App.css';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import { Menu } from './components/Header/Menu';
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Tarefas } from './pages/Tarefas';
-import { Responsaveis } from './pages/Responsaveis';
-import { Perfil } from './pages/Perfil';
-import { Home } from './pages/Home';
-import { DetalheTarefa } from './pages/DetalheTarefa'; 
-import { EditarTarefa } from './pages/EditarTarefa';
-import { CadastrarTarefa } from './pages/CadastrarTarefas';
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Navigate, Routes } from 'react-router-dom';
+
 import { Login } from './components/Login';
- 
+import Home from './Home';
+import { ProtectedRoute } from './components/ProtectedRoute';
+
+
+
 function App() {
+
+  const [isAutenticated, setIsAutenticated] = useState(false);
+  const [verificando, setVerificando] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    setIsAutenticated(!!token);
+    setVerificando(false);
+  }, [])
+
+  if (verificando) {
+    return <p>Carregando...</p>
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    setIsAutenticated(false);
+  }
+
   return (
     <BrowserRouter>
-      <div>
-        <Header />
-        <Menu />
+      {/*ROTAS PUBLICAS*/}
+      <Routes>
+        <Route
+          path='/login'
+          element=
+          {
+            isAutenticated ? (
+              <Navigate to='/' replace />
+            ) :
+              <Login onLoginSucess={() => setIsAutenticated(true)} />
+          }
+        />
 
-        <main className='mainApp'>
-          <Routes>
-            <Route path='/' element = {<Home />}/>
-            <Route path='/tarefas' element = {<Tarefas />}/>
-            <Route path='/responsaveis' element = {<Responsaveis />}/>
-            <Route path='/perfil' element = {<Perfil />}/>
+        {/*ROTAS PROTEGIDAS/PRIVADAS*/}
 
-            <Route path='/autenticar' element={<Login />}/>
-            <Route path='/cadastrarTarefa' element={<CadastrarTarefa/>}/>
-            <Route path='/detalheTarefa/:id' element={<DetalheTarefa/>}/>
-            <Route path='/editarTarefa/:id' element={<EditarTarefa/>}/>
-            <Route path='/excluirTarefa/:id' element={<Home/>}/>
-            
-          </Routes>
-        </main>
+        <Route
+          element={<ProtectedRoute isAutenticated={isAutenticated} />}
+        >
+          <Route
+            path='/*'
+            element={<Home onLogout={handleLogout} />}
+          />
+        </Route>
+      </Routes>
 
-        <Footer />
-      </div>
     </BrowserRouter>
 
   );

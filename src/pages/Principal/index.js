@@ -1,9 +1,9 @@
 import './index.css';
 
-export function Home(){
+export function Principal(){
     return(
         <section className = 'sectionHome'>
-            <h1>Home</h1>
+            <h1>Página Principal</h1>
         </section>
     )
 }

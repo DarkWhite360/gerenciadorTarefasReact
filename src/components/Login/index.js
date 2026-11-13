@@ -1,35 +1,40 @@
 import { useState } from "react";
 import api from "../../services/api";
-import { useNavigate } from "react-router-dom";
 
-export function Login() {
-    /*
-    const [email, setEmail] = useState('antonio@gmail.com');
-    const[senha, setSenha] = useState('123456');
-    */
-    const [email, setEmail] = useState('antonio@gmail.com');
-    const[senha, setSenha] = useState('123456');
 
-    const navigate = useNavigate();
+export function Login( {onLoginSucess}) {
+    
+    const [email, setEmail] = useState('marcos@gamil.com');
+    const[senha, setSenha] = useState('54321');
 
     const autenticar = async(e)=>{
         e.preventDefault();
 
-        if(!"email || !senha"){
+        if(!email || !senha){
             alert("Os campos de E-mail e Senha são obrigatórios!!")
             return;
         }
         try{
-            const logar = await api.post('/responsaveis/autenticar',(email,senha));
-            setEmail();
-            setSenha();
-            console.log('Autenticado com sucesso!!!');
-            navigate('/');
+            const response = await api.post('/responsaveis/autenticar',{email,senha});
+            console.log('Autenticado com sucesso!!!', response.data);
+
+            // const token = response.data.token;
+            const token = '123456789'
+            console.log(token)
+            
+            if(token){
+                localStorage.setItem('token', token);
+                localStorage.setItem('usuario', JSON.stringify(response.data.responsavel));
+            }
+            alert('Login realizado com sucesso!!!');
+
+            if(onLoginSucess){
+                onLoginSucess();
+            }
 
         }catch(error){
-            console.log('Erro de autenticação!!!', error)
-            alert("Erro de autenticação!!!")
-            return
+            console.log('Erro de autenticação!!!', error);
+            alert("Erro de autenticação, verifique suas credenciais.");
         }
     }
 
