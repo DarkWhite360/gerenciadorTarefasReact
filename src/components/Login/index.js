@@ -19,7 +19,8 @@ export function Login( {onLoginSucess}) {
             console.log('Autenticado com sucesso!!!', response.data);
 
             // const token = response.data.token;
-            const token = '123456789'
+            //const token = '123456789'
+            const token = response.data.token;
             console.log(token)
             
             if(token){
