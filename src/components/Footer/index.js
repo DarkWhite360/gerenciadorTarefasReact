@@ -1,10 +1,18 @@
 import './index.css'
 
-function Footer(){
-    return(
+function Footer() {
+    return (
         <footer>
-            <div>Menu</div>
-            <div>Credenciais</div>
+              <div className="local">
+                <p className='nomeLocal'>
+                    SENAC - MARINGÁ - PR
+                </p>
+            </div>
+            <div className="desenvolvedor">
+                <p className='nomeDesenvolvedor'>
+                    Desenvolvido por: Antonio Branco - 2026
+                </p>
+            </div>
         </footer>
     )
 }

@@ -1,10 +1,11 @@
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
+
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { Menu } from './components/Header/Menu';
 import { Principal } from './pages/Principal';
 
-import { Routes, Route } from 'react-router-dom';
 import { Tarefas } from './pages/Tarefas';
 import { Responsaveis } from './pages/Responsaveis';
 import { Perfil } from './pages/Perfil';

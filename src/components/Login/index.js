@@ -4,8 +4,8 @@ import api from "../../services/api";
 
 export function Login( {onLoginSucess}) {
     
-    const [email, setEmail] = useState('marcos@gamil.com');
-    const[senha, setSenha] = useState('54321');
+    const [email, setEmail] = useState('antonio@gmail.com');
+    const[senha, setSenha] = useState('123456');
 
     const autenticar = async(e)=>{
         e.preventDefault();
@@ -18,9 +18,8 @@ export function Login( {onLoginSucess}) {
             const response = await api.post('/responsaveis/autenticar',{email,senha});
             console.log('Autenticado com sucesso!!!', response.data);
 
-            // const token = response.data.token;
-            //const token = '123456789'
-            const token = response.data.token;
+            //const token = response.data.token;
+            const token = '123456789'
             console.log(token)
             
             if(token){
@@ -37,7 +36,7 @@ export function Login( {onLoginSucess}) {
             console.log('Erro de autenticação!!!', error);
             alert("Erro de autenticação, verifique suas credenciais.");
         }
-    }
+    };
 
     return (
         <section>

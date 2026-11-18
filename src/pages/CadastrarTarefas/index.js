@@ -1,7 +1,5 @@
-import { useParams } from "react-router-dom";
 import "./index.css"
 import { useState } from "react";
-import { preconnect } from "react-dom";
 import api from "../../services/api";
 
 export function CadastrarTarefa(){
@@ -22,10 +20,8 @@ export function CadastrarTarefa(){
             return;
         }
 
-        const id_responsavel = responsavel;
-
         try{
-            await api.post("/tarefa", {
+            const reposta = await api.post("/tarefa", {
                 titulo, 
                 descricao,
                 observacao,
@@ -35,11 +31,36 @@ export function CadastrarTarefa(){
                 id_responsavel : Number(responsavel), 
             });
 
+            console.log("Sucesso:", resposta.data);
             alert("Sucesso", "Tarefa cadastrada com sucesso!");
 
+            // Opcional: limpar os campos após o cadastro
+            setTitulo('');
+            setDescricao('');
+            setPreco('');
+            setData_limite('');
+            setTempo_estimado('');
+
         } catch(error){
-            console.log(error);
-            alert(error.response?.data?.mensagem || "Não foi possível cadastrar a tarefa.");
+            console.log("Erro na requisição", error);
+            // alert(error.response?.data?.mensagem || "Não foi possível cadastrar a tarefa.");
+
+            console.error("Erro completo", error);
+            if(error.response){
+                // O servidor respondeu com um status de erro (ex: 400, 422, 500)
+                console.error("Dados do erro: ", error.response.data);
+                console.error("Status do erro: ", error.response.status);
+                alert(`Erro ${error.response.status}: ${error.response.data?.message || JSON.stringfy(error.response.data)}`);
+            }else if (error.request){
+                // A requisição foi feita mas NENHUMA resposta foi recebida (API fora do ar ou CORS bloqueando o POST)
+                console.error("Nenhuma resposta recebida: ", error.message)
+                alert("A API não respondeu. Verifique se o servidor backend está rodando");
+            } else {
+                // Erro ao configurar a requisição
+                console.error("Erro de configuração: ", error.message);
+                alert("Erro ao enviar requisição: " + error.message);
+            }
+
         }
     }
 
